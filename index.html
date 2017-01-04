@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <title>KYYKKIS HOTLINE</title>
+  <meta name="description" content="Send message to Kyykkis">
+  <meta name="author" content="luffis">
+  <link rel="stylesheet" href="index.css">
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+</head>
+<body>
+
+  <div class="Main">
+    <form>
+      <input type="text" />
+      <button type="submit">🍍</button>
+    </form>
+    <ul></ul>
+  </div>
+
+  <script>
+
+/////////////////////////////////////////
+
+$(function() {
+  $('form').first().submit(function(e) {
+    var input = $('input')
+    var message = input.val()
+    input.val('')
+    e.preventDefault()
+    $.post('/send', {
+      message: message
+    }).done(function() {
+      $('ul').prepend('<li>message sent to kyykkis: ' + message + '</li>')
+    })
+    return false
+  })
+})
+
+/////////////////////////////////////////
+
+  </script>
+</body>
+</html>
