@@ -26,8 +26,6 @@ var TOKEN = process.env.SLACK_BOT_TOKEN;
 var CHANNEL = '#juorukerho';
 var MESSAGE_LIFETIME = 120000;
 
-console.log(TOKEN);
-
 var messageBase = {
   token: TOKEN,
   channel: CHANNEL,
@@ -58,6 +56,7 @@ app.post('/seuraa', function (req, res) {
   _slack2.default.chat.postMessage(_extends({}, messageBase, {
     text: '*SEURAAAA!*'
   }), function (err, data) {
+    console.log(err);
     timeoutRemoveMessage(data.channel, data.ts);
     res.sendStatus(200);
   });

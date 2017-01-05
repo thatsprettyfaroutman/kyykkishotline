@@ -8,9 +8,6 @@ const TOKEN = process.env.SLACK_BOT_TOKEN
 const CHANNEL = '#juorukerho'
 const MESSAGE_LIFETIME = 120000
 
-console.log(TOKEN)
-
-
 const messageBase = {
   token: TOKEN,
   channel: CHANNEL,
@@ -43,6 +40,7 @@ app.post('/seuraa', (req, res) => {
     ...messageBase,
     text: '*SEURAAAA!*'
   }, (err, data) => { 
+    console.log(err)
     timeoutRemoveMessage(data.channel, data.ts) 
     res.sendStatus(200) 
   }) 
