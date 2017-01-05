@@ -75,6 +75,28 @@ app.post('/vittuluffis', (req, res) => {
   }) 
 })
 
+app.post('/nalka', (req, res) => {
+  slack.chat.postMessage({
+    ...messageBase,
+    text: '*NÄLKÄÄÄÄÄÄ*'
+  }, (err, data) => { 
+    timeoutRemoveMessage(data.channel, data.ts) 
+    res.sendStatus(200) 
+  }) 
+})
+
+app.post('/rahkaa', (req, res) => {
+  slack.chat.postMessage({
+    ...messageBase,
+    text: '*RAHKAAAAA*'
+  }, (err, data) => { 
+    timeoutRemoveMessage(data.channel, data.ts) 
+    res.sendStatus(200) 
+  }) 
+})
+
+
+
 
 /*
 app.post('/send', (req, res) => {

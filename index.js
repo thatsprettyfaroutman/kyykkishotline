@@ -90,6 +90,24 @@ app.post('/vittuluffis', function (req, res) {
   });
 });
 
+app.post('/nalka', function (req, res) {
+  _slack2.default.chat.postMessage(_extends({}, messageBase, {
+    text: '*NÄLKÄÄÄÄÄÄ*'
+  }), function (err, data) {
+    timeoutRemoveMessage(data.channel, data.ts);
+    res.sendStatus(200);
+  });
+});
+
+app.post('/rahkaa', function (req, res) {
+  _slack2.default.chat.postMessage(_extends({}, messageBase, {
+    text: '*RAHKAAAAA*'
+  }), function (err, data) {
+    timeoutRemoveMessage(data.channel, data.ts);
+    res.sendStatus(200);
+  });
+});
+
 /*
 app.post('/send', (req, res) => {
   const message = req.body.message
