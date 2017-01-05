@@ -46,7 +46,7 @@ app.post('/send', function (req, res) {
       _slack2.default.chat.postMessage({
         token: TOKEN,
         channel: PUBLIC_CHANNEL,
-        text: '🍍  *' + message + '*',
+        text: ':tillintallin: *' + message + '*',
         as_user: true
       }, function () {
         res.sendStatus(200);
