@@ -1,5 +1,5 @@
 import slack from 'slack'
-import env from './env'
+//import env from './env'
 import express from 'express'
 import path from 'path'
 import bodyParser from 'body-parser'
