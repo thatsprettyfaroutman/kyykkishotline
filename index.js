@@ -26,7 +26,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var TOKEN = process.env.SLACK_BOT_TOKEN;
 var CHANNEL = '#juorukerho';
-var MESSAGE_LIFETIME = 20000;
+var MESSAGE_LIFETIME = 120000;
 
 var messageBase = {
   token: TOKEN,
