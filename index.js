@@ -26,6 +26,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var TOKEN = process.env.SLACK_BOT_TOKEN;
 var CHANNEL = '#juorukerho';
+var MESSAGE_LIFETIME = 20000;
 
 var messageBase = {
   token: TOKEN,
@@ -41,10 +42,23 @@ app.get('/', function (req, res) {
   res.sendFile(_path2.default.resolve(__dirname, 'index.html'));
 });
 
+var timeoutRemoveMessage = function timeoutRemoveMessage(channel, ts) {
+  console.log('[INFO] Posted: ' + ts);
+  setTimeout(function () {
+    _slack2.default.chat.delete(_extends({}, messageBase, {
+      channel: channel,
+      ts: ts
+    }), function (err, data) {
+      console.log('[INFO] Removed: ' + ts);
+    });
+  }, MESSAGE_LIFETIME);
+};
+
 app.post('/seuraa', function (req, res) {
   _slack2.default.chat.postMessage(_extends({}, messageBase, {
     text: '*SEURAAAA!*'
-  }), function () {
+  }), function (err, data) {
+    timeoutRemoveMessage(data.channel, data.ts);
     res.sendStatus(200);
   });
 });
@@ -52,7 +66,8 @@ app.post('/seuraa', function (req, res) {
 app.post('/kahvia', function (req, res) {
   _slack2.default.chat.postMessage(_extends({}, messageBase, {
     text: '*KAHVIAAA!*'
-  }), function () {
+  }), function (err, data) {
+    timeoutRemoveMessage(data.channel, data.ts);
     res.sendStatus(200);
   });
 });
@@ -60,7 +75,8 @@ app.post('/kahvia', function (req, res) {
 app.post('/tillintallin', function (req, res) {
   _slack2.default.chat.postMessage(_extends({}, messageBase, {
     text: ':tillintallin:'
-  }), function () {
+  }), function (err, data) {
+    timeoutRemoveMessage(data.channel, data.ts);
     res.sendStatus(200);
   });
 });
@@ -68,7 +84,8 @@ app.post('/tillintallin', function (req, res) {
 app.post('/vittuluffis', function (req, res) {
   _slack2.default.chat.postMessage(_extends({}, messageBase, {
     text: '*Vittu Luffis* :tillintallin::bee:'
-  }), function () {
+  }), function (err, data) {
+    timeoutRemoveMessage(data.channel, data.ts);
     res.sendStatus(200);
   });
 });

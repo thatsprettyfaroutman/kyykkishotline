@@ -6,6 +6,7 @@ import bodyParser from 'body-parser'
 
 const TOKEN = process.env.SLACK_BOT_TOKEN
 const CHANNEL = '#juorukerho'
+const MESSAGE_LIFETIME = 20000
 
 const messageBase = {
   token: TOKEN,
@@ -21,33 +22,57 @@ app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'index.html'))
 })
 
+const timeoutRemoveMessage = (channel,ts) => {
+  console.log('[INFO] Posted: ' + ts)
+  setTimeout(() => {
+    slack.chat.delete({
+      ...messageBase,
+      channel,
+      ts
+    }, (err, data) => {
+      console.log('[INFO] Removed: ' + ts)
+    })
+  }, MESSAGE_LIFETIME)
+}
 
 app.post('/seuraa', (req, res) => {
   slack.chat.postMessage({
     ...messageBase,
     text: '*SEURAAAA!*'
-  }, () => { res.sendStatus(200) }) 
+  }, (err, data) => { 
+    timeoutRemoveMessage(data.channel, data.ts) 
+    res.sendStatus(200) 
+  }) 
 })
 
 app.post('/kahvia', (req, res) => {
   slack.chat.postMessage({
     ...messageBase,
     text: '*KAHVIAAA!*'
-  }, () => { res.sendStatus(200) }) 
+  }, (err, data) => { 
+    timeoutRemoveMessage(data.channel, data.ts) 
+    res.sendStatus(200) 
+  }) 
 })
 
 app.post('/tillintallin', (req, res) => {
   slack.chat.postMessage({
     ...messageBase,
     text: ':tillintallin:'
-  }, () => { res.sendStatus(200) }) 
+  }, (err, data) => { 
+    timeoutRemoveMessage(data.channel, data.ts) 
+    res.sendStatus(200) 
+  }) 
 })
 
 app.post('/vittuluffis', (req, res) => {
   slack.chat.postMessage({
     ...messageBase,
     text: '*Vittu Luffis* :tillintallin::bee:'
-  }, () => { res.sendStatus(200) }) 
+  }, (err, data) => { 
+    timeoutRemoveMessage(data.channel, data.ts) 
+    res.sendStatus(200) 
+  }) 
 })
 
 
