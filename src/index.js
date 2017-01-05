@@ -8,6 +8,9 @@ const TOKEN = process.env.SLACK_BOT_TOKEN
 const CHANNEL = '#juorukerho'
 const MESSAGE_LIFETIME = 120000
 
+console.log(TOKEN)
+
+
 const messageBase = {
   token: TOKEN,
   channel: CHANNEL,
