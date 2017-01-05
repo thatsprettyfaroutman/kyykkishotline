@@ -1,8 +1,8 @@
 # kyykkishotline
-Send private messages to kyykkis
+Send messages to kyykkis
 
 ## 🍍
-* Only edit files in 'src' dir
+* Only edit files in `src` dir
 * `yarn build` will compile js and move needed files to root dir
 * `yarn start-dev` to run dev env, you need .env file with tokens. (Local dev not prolly working atm ¯\_(ツ)_/¯)
 
