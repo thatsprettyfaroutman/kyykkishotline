@@ -26,6 +26,8 @@ var TOKEN = process.env.SLACK_BOT_TOKEN;
 var CHANNEL = '#juorukerho';
 var MESSAGE_LIFETIME = 120000;
 
+console.log(TOKEN);
+
 var messageBase = {
   token: TOKEN,
   channel: CHANNEL,
