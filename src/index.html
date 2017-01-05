@@ -108,10 +108,21 @@ a {
 
 $(function() {
   $('a').on('click', function(e) {
+    var link = $(this)
     e.preventDefault()
     $.post(this.href, function() {
       console.log('sent')
     })
+
+    var linkText = link.text()
+
+    if (linkText !== '💥') {
+      link.html('💥')
+      setTimeout(function(){
+        link.html(linkText)
+      }, 400)
+    }
+
     return false
   })
 })
