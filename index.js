@@ -1,5 +1,7 @@
 'use strict';
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _slack = require('slack');
 
 var _slack2 = _interopRequireDefault(_slack);
@@ -23,8 +25,13 @@ var _bodyParser2 = _interopRequireDefault(_bodyParser);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var TOKEN = process.env.SLACK_BOT_TOKEN;
-var CHANNEL = '@luffis';
-var PUBLIC_CHANNEL = '@luffis';
+var CHANNEL = '#juorukerho';
+
+var messageBase = {
+  token: TOKEN,
+  channel: CHANNEL,
+  as_user: true
+};
 
 var app = (0, _express2.default)();
 app.use(_bodyParser2.default.urlencoded({ extended: false }));
@@ -34,28 +41,62 @@ app.get('/', function (req, res) {
   res.sendFile(_path2.default.resolve(__dirname, 'index.html'));
 });
 
-app.post('/send', function (req, res) {
-  var message = req.body.message;
+app.post('/seuraa', function (req, res) {
+  _slack2.default.chat.postMessage(_extends({}, messageBase, {
+    text: '*SEURAAAA!*'
+  }), function () {
+    res.sendStatus(200);
+  });
+});
+
+app.post('/kahvia', function (req, res) {
+  _slack2.default.chat.postMessage(_extends({}, messageBase, {
+    text: '*KAHVIAAA!*'
+  }), function () {
+    res.sendStatus(200);
+  });
+});
+
+app.post('/tillintallin', function (req, res) {
+  _slack2.default.chat.postMessage(_extends({}, messageBase, {
+    text: ':tillintallin:'
+  }), function () {
+    res.sendStatus(200);
+  });
+});
+
+app.post('/vittuluffis', function (req, res) {
+  _slack2.default.chat.postMessage(_extends({}, messageBase, {
+    text: '*Vittu Luffis* :tillintallin::bee:'
+  }), function () {
+    res.sendStatus(200);
+  });
+});
+
+/*
+app.post('/send', (req, res) => {
+  const message = req.body.message
   if (message && message.length) {
-    _slack2.default.chat.postMessage({
+    slack.chat.postMessage({
       token: TOKEN,
       channel: CHANNEL,
       text: message,
-      as_user: true
-    }, function () {
-      _slack2.default.chat.postMessage({
+      as_user: true,
+    }, () => {
+      slack.chat.postMessage({
         token: TOKEN,
         channel: PUBLIC_CHANNEL,
-        text: ':tillintallin: *' + message + '*',
-        as_user: true
-      }, function () {
-        res.sendStatus(200);
-      });
-    });
+        text: `:tillintallin: *${message}*`,
+        as_user: true,
+      }, () => {
+        res.sendStatus(200)
+      })
+    })
   } else {
-    res.sendStatus(412);
+    res.sendStatus(412)
   }
-});
+})
+*/
 
 app.listen(process.env.PORT || 3000, function () {
   console.log('Kyykkis Hotline Online!');

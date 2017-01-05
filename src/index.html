@@ -5,26 +5,116 @@
   <title>KYYKKIS HOTLINE</title>
   <meta name="description" content="Send message to Kyykkis">
   <meta name="author" content="luffis">
-  <link rel="stylesheet" href="index.css">
+  <link rel="icon" type="image/png" href="favicon.png" />
   <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
   <![endif]-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Fira+Mono|Monoton" rel="stylesheet">
+  <style>
+
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #000;
+}
+
+header {
+  position: relative;
+  height: 400px;
+  font-family: 'Monoton',sans-serif;
+  font-size: 100px;
+  text-align: center;
+  color: #f04;
+}
+
+header span {
+  position: absolute;
+  display: block;
+  line-height: 100px;
+  height: 200px;
+  top: 50%;
+  left: 0;
+  right: 0;
+  margin-top: -100px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+header span:nth-child(2) {
+  opacity: 0.2;
+  margin-top: -90px;
+}
+
+header span:nth-child(3) {
+  opacity: 0.2;
+  margin-top: -80px;
+}
+
+header span:nth-child(4) {
+  opacity: 0.2;
+  margin-top: -70px;
+}
+
+
+section {
+  background-color :#f0f;
+  width: 400px;
+  margin: 0 auto;
+}
+
+a {
+  display: block;
+  width: 190px;
+  height: 60px;
+  background-color: #fff;
+  color: #000;
+  float: left;
+  box-sizing: border-box;
+  margin: 5px;
+  line-height: 60px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: 'Fira Mono', sans-serif;
+}
+
+
+
+  </style>
 </head>
 <body>
 
-  <div class="Main">
-    <form>
-      <input type="text" />
-      <button type="submit">🍍</button>
-    </form>
-    <ul></ul>
-  </div>
+  <header>
+    <span>Kyykkis Hotline</span>
+    <span>Kyykkis Hotline</span>
+    <span>Kyykkis Hotline</span>
+    <span>Kyykkis Hotline</span>  
+  </header>
+
+  <section>
+    <a href="/seuraa">Seuraa</a>
+    <a href="/kahvia">Kahvia</a>
+    <a href="/tillintallin">Tillintallin</a>
+    <a href="/vittuluffis">Vittu Luffis</a>
+  </section>
 
   <script>
 
 /////////////////////////////////////////
 
+$(function() {
+  $('a').on('click', function(e) {
+    e.preventDefault()
+    $.post(this.href, function() {
+      console.log('sent')
+    })
+    return false
+  })
+})
+
+/*
 $(function() {
   $('form').first().submit(function(e) {
     var input = $('input')
@@ -39,6 +129,7 @@ $(function() {
     return false
   })
 })
+*/
 
 /////////////////////////////////////////
 
