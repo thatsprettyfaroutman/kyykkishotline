@@ -107,30 +107,23 @@ app.post('/rahkaa', function (req, res) {
   });
 });
 
-/*
-app.post('/send', (req, res) => {
-  const message = req.body.message
-  if (message && message.length) {
-    slack.chat.postMessage({
-      token: TOKEN,
-      channel: CHANNEL,
-      text: message,
-      as_user: true,
-    }, () => {
-      slack.chat.postMessage({
-        token: TOKEN,
-        channel: PUBLIC_CHANNEL,
-        text: `:tillintallin: *${message}*`,
-        as_user: true,
-      }, () => {
-        res.sendStatus(200)
-      })
-    })
-  } else {
-    res.sendStatus(412)
-  }
-})
-*/
+app.post('/tuntiviel', function (req, res) {
+  _slack2.default.chat.postMessage(_extends({}, messageBase, {
+    text: '*Tunti vielä* :tillintallin:'
+  }), function (err, data) {
+    timeoutRemoveMessage(data.channel, data.ts);
+    res.sendStatus(200);
+  });
+});
+
+app.post('/millonsaalahtee', function (req, res) {
+  _slack2.default.chat.postMessage(_extends({}, messageBase, {
+    text: '*Millon saa lähtee?* :tillintallin::tillintallin::tillintallin:'
+  }), function (err, data) {
+    timeoutRemoveMessage(data.channel, data.ts);
+    res.sendStatus(200);
+  });
+});
 
 app.listen(process.env.PORT || 3000, function () {
   console.log('Kyykkis Hotline Online!');
