@@ -4,6 +4,8 @@ import path from 'path'
 import bodyParser from 'body-parser'
 import env from 'node-env-file'
 
+console.log('IT WORKD')
+
 const DEV = process.env.NODE_ENV === 'development'
 
 if (DEV) {
