@@ -4,7 +4,9 @@ import path from 'path'
 import bodyParser from 'body-parser'
 import env from 'node-env-file'
 
-env(path.join(process.cwd(), '.env'))
+try {
+  env(path.join(process.cwd(), '.env'))
+} catch (e) {}
 
 const DEV = process.env.NODE_ENV === 'development'
 const TOKEN = process.env.BOT_TOKEN
