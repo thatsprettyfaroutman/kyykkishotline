@@ -4,13 +4,15 @@ import path from 'path'
 import bodyParser from 'body-parser'
 import env from 'node-env-file'
 
-if (process.env.NODE_ENV === 'development') {
+const DEV = process.env.NODE_ENV === 'development'
+
+if (DEV) {
   env(path.join(process.cwd(), '.env'))
 }
 
 const TOKEN = process.env.BOT_TOKEN
 const CHANNEL = process.env.TARGET_CHANNEL
-const MESSAGE_LIFETIME = 120000
+const MESSAGE_LIFETIME = DEV ? 5000 : 120000
 const MESSAGE_BASE = {
   token: TOKEN,
   channel: CHANNEL,

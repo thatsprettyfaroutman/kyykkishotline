@@ -24,13 +24,15 @@ var _nodeEnvFile2 = _interopRequireDefault(_nodeEnvFile);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-if (process.env.NODE_ENV === 'development') {
+var DEV = process.env.NODE_ENV === 'development';
+
+if (DEV) {
   (0, _nodeEnvFile2.default)(_path2.default.join(process.cwd(), '.env'));
 }
 
 var TOKEN = process.env.BOT_TOKEN;
 var CHANNEL = process.env.TARGET_CHANNEL;
-var MESSAGE_LIFETIME = 120000;
+var MESSAGE_LIFETIME = DEV ? 5000 : 120000;
 var MESSAGE_BASE = {
   token: TOKEN,
   channel: CHANNEL,
