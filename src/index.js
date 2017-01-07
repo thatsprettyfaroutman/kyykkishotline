@@ -30,27 +30,35 @@ if (!CHANNEL) {
 const messages = [
   {
     url: '/seuraa',
+    linkText: 'Seuraa',
     text: '*SEURAAAA!*',
   }, {
     url: '/kahvia',
+    linkText: 'Kahvia',
     text: '*KAHVIAAA!*',
   }, {
     url: '/tillintallin',
+    linkText: 'Tillintallin',
     text: ':tillintallin:',
   }, {
     url: '/vittuluffis',
+    linkText: 'Vittu Luffis',
     text: '*Vittu Luffis* :tillintallin::bee:',
   }, {
     url: '/nalka',
+    linkText: 'Nälkä',
     text: '*NÄLKÄÄÄÄÄÄ*',
   }, {
     url: '/rahkaa',
+    linkText: 'Rahkaa',
     text: '*RAHKAAAAA*',
   }, {
     url: '/tuntiviel',
+    linkText: 'Tunti viel',
     text: '*Tunti vielä* :tillintallin:',
   }, {
     url: '/millonsaalahtee',
+    linkText: 'Millon saa lähtee?',
     text: '*Millon saa lähtee?* :tillintallin::tillintallin::tillintallin:',
   },
 ]
@@ -61,6 +69,10 @@ app.use(bodyParser.json())
 
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'index.html'))
+})
+
+app.get('/messages', (req, res) => {
+  res.send(messages)
 })
 
 const sendMessage = (message) => {

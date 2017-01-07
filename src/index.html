@@ -100,7 +100,6 @@ a {
 
 a.active {
   z-index: 1;
-  /*background-color: #f04;*/
 }
 
 a.active::after {
@@ -126,35 +125,38 @@ a.active::after {
     <span>Kyykkis Hotline</span>
   </header>
 
-  <section>
-    <a href="/seuraa">Seuraa</a>
-    <a href="/kahvia">Kahvia</a>
-    <a href="/tillintallin">Tillintallin</a>
-    <a href="/vittuluffis">Vittu Luffis</a>
-    <a href="/nalka">Nälkä</a>
-    <a href="/rahkaa">Rahkaa</a>
-    <a href="/tuntiviel">Tunti viel</a>
-    <a href="/millonsaalahtee">Millon saa lähtee?</a>
-  </section>
+  <section></section>
 
   <script>
 
 /////////////////////////////////////////
 
 $(function() {
-  $('a').on('click', function(e) {
-    var link = $(this)
 
+  // Get message links, render and bind
+  $.get('/messages').done(function(messages) {
+    $('section').each(function(i, section) {
+      var $section = $(section)
+      $(messages).each(function(i, message) {
+        var $link = $('<a/>')
+        $link.prop('href', message.url)
+        $link.html(message.linkText)
+        $section.append($link)
+        $link.on('click', _sendMessage)
+      })
+    })
+  })
+
+  // Send message handler
+  function _sendMessage(e) {
+    var link = $(this)
     e.preventDefault()
     $.post(this.href)
-
     link.addClass('active')
-    setTimeout(function(){
-      link.removeClass('active')
-    }, 400)
-
+    setTimeout(function() { link.removeClass('active') }, 400)
     return false
-  })
+  }
+
 })
 
 /////////////////////////////////////////
