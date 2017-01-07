@@ -17,8 +17,12 @@ const MESSAGE_BASE = {
   as_user: true,
 }
 
+if (!TOKEN) {
+  throw new Error('BOT_TOKEN not set in .env')
+}
+
 if (!CHANNEL) {
-  throw new Error('CHANNEL not set')
+  throw new Error('TARGET_CHANNEL not set in .env')
 }
 
 const messages = [
