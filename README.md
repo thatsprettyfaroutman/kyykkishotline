@@ -2,10 +2,17 @@
 Send messages to kyykkis
 
 ## 🍍
-* `yarn start-dev` to run dev env. You need an `.env` file with tokens and stuff. Put it in the root dir ¯\\_(ツ)_/¯
+* `yarn install`
+* Create an `.env` file 
+* `yarn start-dev`
+* ¯\\_(ツ)_/¯
 
-## Example .env file
+
+## Example `.env` file
 ```
 BOT_TOKEN="xxxx"
 TARGET_CHANNEL="@turger"
 ```
+
+`BOT_TOKEN` - Slack token
+`TARGET_CHANNEL` - Slack channel messages are sent to
