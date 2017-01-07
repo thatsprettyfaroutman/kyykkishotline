@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <title>KYYKKIS HOTLINE</title>
+  <meta name="description" content="Send message to Kyykkis">
+  <meta name="author" content="luffis">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+  <![endif]-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Fira+Mono|Monoton" rel="stylesheet">
+  <style>
+
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #000;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  position: relative;
+  display: flex;
+  flex: 1;
+  height: 400px;
+  font-family: 'Monoton',sans-serif;
+  font-size: 50px;
+  text-align: center;
+  color: #f04;
+}
+
+header span {
+  position: absolute;
+  display: flex;
+  flex: 1;
+  line-height: 50px;
+  height: 200px;
+  top: 50%;
+  left: 0;
+  right: 0;
+  margin-top: -50px;
+  text-align: center;
+  text-transform: uppercase;
+  justify-content: center;
+}
+
+header span:nth-child(2) {
+  opacity: 0.2;
+  margin-top: -90px;
+}
+
+header span:nth-child(3) {
+  opacity: 0.2;
+  margin-top: -80px;
+}
+
+header span:nth-child(4) {
+  opacity: 0.2;
+  margin-top: -70px;
+}
+
+
+section {
+  display: flex;
+  flex-flow: row wrap;
+  flex: 2;
+}
+
+a {
+  position: relative;
+  display: flex;
+  flex: 1 1 50vw;
+  max-width: 50vw;
+  background-color: #000;
+  color: #fff;
+  float: left;
+  box-sizing: border-box;
+  margin: 0;
+  line-height: 10px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-family: 'Fira Mono', sans-serif;
+  box-sizing: border-box;
+  border: 1px solid #222;
+  font-size: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+a.active {
+  z-index: 1;
+  /*background-color: #f04;*/
+}
+
+a.active::after {
+  content: '💥';
+  position: absolute;
+  display: block;
+  top: 70%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 200px;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <span>Kyykkis Hotline</span>
+    <span>Kyykkis Hotline</span>
+    <span>Kyykkis Hotline</span>
+    <span>Kyykkis Hotline</span>
+  </header>
+
+  <section>
+    <a href="/seuraa">Seuraa</a>
+    <a href="/kahvia">Kahvia</a>
+    <a href="/tillintallin">Tillintallin</a>
+    <a href="/vittuluffis">Vittu Luffis</a>
+    <a href="/nalka">Nälkä</a>
+    <a href="/rahkaa">Rahkaa</a>
+    <a href="/tuntiviel">Tunti viel</a>
+    <a href="/millonsaalahtee">Millon saa lähtee?</a>
+  </section>
+
+  <script>
+
+/////////////////////////////////////////
+
+$(function() {
+  $('a').on('click', function(e) {
+    var link = $(this)
+
+    e.preventDefault()
+    $.post(this.href)
+
+    link.addClass('active')
+    setTimeout(function(){
+      link.removeClass('active')
+    }, 400)
+
+    return false
+  })
+})
+
+/////////////////////////////////////////
+
+  </script>
+</body>
+</html>

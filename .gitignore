@@ -2,3 +2,4 @@ node_modules
 .DS_Store
 .index.backup.js
 .env
+yarn.lock
