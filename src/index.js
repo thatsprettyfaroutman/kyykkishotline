@@ -7,7 +7,7 @@ import env from 'node-env-file'
 env(path.join(process.cwd(), '.env'))
 
 const DEV = process.env.NODE_ENV === 'development'
-const TOKEN = process.env.SLACK_BOT_TOKEN
+const TOKEN = process.env.BOT_TOKEN
 const CHANNEL = process.env.TARGET_CHANNEL
 const MESSAGE_LIFETIME = 120000
 const MESSAGE_BASE = {
@@ -16,7 +16,9 @@ const MESSAGE_BASE = {
   as_user: true,
 }
 
-console.log(MESSAGE_BASE)
+if (!CHANNEL) {
+  throw new Error('CHANNEL not set')
+}
 
 const messages = [
   {
@@ -94,5 +96,5 @@ messages.forEach(message => {
 
 // Listen
 app.listen(process.env.PORT || 3000, () => {
-  console.log(`Kyykkis Hotline Online! (port: ${process.env.PORT || 3000})`)
+  console.log(`Kyykkis Hotline Online! Harassing Kyykkis on channel: ${CHANNEL} (port: ${process.env.PORT || 3000})`)
 })

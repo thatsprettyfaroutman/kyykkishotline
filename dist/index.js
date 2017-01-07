@@ -27,7 +27,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 (0, _nodeEnvFile2.default)(_path2.default.join(process.cwd(), '.env'));
 
 var DEV = process.env.NODE_ENV === 'development';
-var TOKEN = process.env.SLACK_BOT_TOKEN;
+var TOKEN = process.env.BOT_TOKEN;
 var CHANNEL = process.env.TARGET_CHANNEL;
 var MESSAGE_LIFETIME = 120000;
 var MESSAGE_BASE = {
@@ -36,7 +36,9 @@ var MESSAGE_BASE = {
   as_user: true
 };
 
-console.log(MESSAGE_BASE);
+if (!CHANNEL) {
+  throw new Error('CHANNEL not set');
+}
 
 var messages = [{
   url: '/seuraa',
@@ -110,5 +112,5 @@ messages.forEach(function (message) {
 
 // Listen
 app.listen(process.env.PORT || 3000, function () {
-  console.log('Kyykkis Hotline Online! (port: ' + (process.env.PORT || 3000) + ')');
+  console.log('Kyykkis Hotline Online! Harassing Kyykkis on channel: ' + CHANNEL + ' (port: ' + (process.env.PORT || 3000) + ')');
 });
