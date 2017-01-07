@@ -4,11 +4,10 @@ import path from 'path'
 import bodyParser from 'body-parser'
 import env from 'node-env-file'
 
-try {
+if (process.env.NODE_ENV === 'development') {
   env(path.join(process.cwd(), '.env'))
-} catch (e) {}
+}
 
-const DEV = process.env.NODE_ENV === 'development'
 const TOKEN = process.env.BOT_TOKEN
 const CHANNEL = process.env.TARGET_CHANNEL
 const MESSAGE_LIFETIME = 120000
