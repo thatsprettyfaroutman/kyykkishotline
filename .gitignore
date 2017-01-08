@@ -3,3 +3,4 @@ node_modules
 .index.backup.js
 .env
 yarn.lock
+dist
