@@ -66,9 +66,23 @@ const messages = [
 const app = express()
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
+app.use(express.static(path.join(__dirname, 'web')))
+
+if ( DEV ) {
+  const webpack = require('webpack')
+  const webpackDevMiddleware = require('webpack-dev-middleware')
+  const webpackHotMiddleware = require('webpack-hot-middleware')
+  const config =  require('../webpack.config.js')
+  const compiler = webpack(config)
+  app.use(webpackHotMiddleware(compiler))
+  app.use(webpackDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: config.output.publicPath
+  }))
+}
 
 app.get('/', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'index.html'))
+  res.sendFile(path.resolve(__dirname, 'web', 'index.html'))
 })
 
 app.get('/messages', (req, res) => {
@@ -76,7 +90,7 @@ app.get('/messages', (req, res) => {
 })
 
 const sendMessage = (message) => {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     slack.chat.postMessage(message, (err, data) => {
       resolve(data)
     })
@@ -84,7 +98,7 @@ const sendMessage = (message) => {
 }
 
 const removeMessage = message => {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     setTimeout(() => {
       slack.chat.delete(message, (err, data) => {
         resolve(data)
