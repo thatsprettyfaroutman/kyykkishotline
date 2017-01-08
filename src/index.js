@@ -107,7 +107,10 @@ const removeMessage = message => {
   })
 }
 
+
+
 // Create post request handlers for messages
+
 messages.forEach(message => {
   app.post(message.url, (req, res) => {
     sendMessage({
@@ -126,6 +129,17 @@ messages.forEach(message => {
     })
   })
 })
+
+
+
+// Tikru Cafe
+
+app.post('/tikrucafe', (req, res) => {
+  console.log('NEW ORDER TIKRU CAFE')
+  res.sendStatus(200)
+})
+
+
 
 // Listen
 app.listen(process.env.PORT || 3000, () => {
