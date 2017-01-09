@@ -105,8 +105,11 @@ app.get('/', (req, res) => {
 })
 
 app.get('/messages', (req, res) => {
-  res.send(messages.filter((message) => { return messages.length % 2 == 0 || 
-    message.url !== '/parina' }).map(({url, linkText}) => ({url, linkText})))
+  const messageLinks = messages
+    .filter(message => messages.length % 2 === 0 || message.url !== '/parina')
+    .map(({url, linkText}) => ({url, linkText}))
+
+  res.send(messageLinks)
 })
 
 const sendMessage = (message) => {
