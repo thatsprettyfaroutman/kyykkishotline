@@ -57,9 +57,9 @@ const messages = [
     linkText: 'Tunti viel',
     text: '*Tunti vielä* :tillintallin:',
   }, {
-    url: '/millonsaalahtee',
-    linkText: 'Millon saa lähtee?',
-    text: '*Millon saa lähtee?* :tillintallin::tillintallin::tillintallin:',
+    url: '/tikrugif',
+    linkText: 'Tikru Gif',
+    text: '/giphy tiger',
   },
 ]
 
