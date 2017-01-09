@@ -3,6 +3,7 @@ import express from 'express'
 import path from 'path'
 import bodyParser from 'body-parser'
 import env from 'node-env-file'
+import fetch from 'node-fetch'
 
 const DEV = process.env.NODE_ENV === 'development'
 
@@ -12,7 +13,7 @@ if (DEV) {
 
 const TOKEN = process.env.BOT_TOKEN
 const CHANNEL = process.env.TARGET_CHANNEL
-const MESSAGE_LIFETIME = DEV ? 5000 : 120000
+const MESSAGE_LIFETIME = DEV ? 10000 : 120000
 const MESSAGE_BASE = {
   token: TOKEN,
   channel: CHANNEL,
@@ -25,6 +26,16 @@ if (!TOKEN) {
 
 if (!CHANNEL) {
   throw new Error('TARGET_CHANNEL not set in .env')
+}
+
+const getRandomTigerGif = () => {
+  return fetch('http://api.giphy.com/v1/gifs/search?q=tiger&api_key=dc6zaTOxFJmzC')
+    .then(res => res.json())
+    .then(res => res.data)
+    .then(images => {
+      const selected = parseInt(Math.random() * images.length, 10)
+      return `*TIKRU* ${images[selected].url}`
+    })
 }
 
 const messages = [
@@ -59,7 +70,7 @@ const messages = [
   }, {
     url: '/tikrugif',
     linkText: 'Tikru Gif',
-    text: '/giphy tiger',
+    text: getRandomTigerGif,
   },
 ]
 
@@ -86,7 +97,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/messages', (req, res) => {
-  res.send(messages)
+  res.send(messages.map(({url, linkText}) => ({url, linkText})))
 })
 
 const sendMessage = (message) => {
@@ -113,20 +124,26 @@ const removeMessage = message => {
 
 messages.forEach(message => {
   app.post(message.url, (req, res) => {
-    sendMessage({
-      ...MESSAGE_BASE,
-      text: message.text
-    }).then(data => {
-      res.sendStatus(200)
-      console.log(`[INFO] POSTED: ${message.text} (${data.ts})`)
-      return removeMessage({
-        ...MESSAGE_BASE,
-        channel: data.channel,
-        ts: data.ts
-      })
-    }).then(data => {
-      console.log(`[INFO] REMOVED: ${message.text} (${data.ts})`)
+    new Promise((resolve) => {
+      if (typeof message.text === 'function') {
+        message.text().then(asyncMessage => {
+          resolve(sendMessage({...MESSAGE_BASE, text: asyncMessage}))
+        })
+      } else {
+        resolve(sendMessage({...MESSAGE_BASE, text: message.text }))
+      }
     })
+      .then(data => {
+        res.sendStatus(200)
+        console.log(`[INFO] POSTED: ${message.text} (${data.ts})`)
+        return removeMessage({
+          ...MESSAGE_BASE,
+          channel: data.channel,
+          ts: data.ts
+        })
+      }).then(data => {
+        console.log(`[INFO] REMOVED: ${message.text} (${data.ts})`)
+      })
   })
 })
 
