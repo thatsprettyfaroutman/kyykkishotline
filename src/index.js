@@ -71,6 +71,14 @@ const messages = [
     url: '/tikrugif',
     linkText: 'Tikru Gif',
     text: getRandomTigerGif,
+  }, {
+    url: '/millonsaalahtee',
+    linkText: 'Millon saa lähtee?',
+    text: 'Millon saa lähtee? :tillintallin::tillintallin::tillintallin:',
+  }, {
+    url: '/parina',
+    linkText: 'Pärisee',
+    text: ':bee:',
   },
 ]
 
@@ -97,7 +105,11 @@ app.get('/', (req, res) => {
 })
 
 app.get('/messages', (req, res) => {
-  res.send(messages.map(({url, linkText}) => ({url, linkText})))
+  const messageLinks = messages
+    .filter(message => messages.length % 2 === 0 || message.url !== '/parina')
+    .map(({url, linkText}) => ({url, linkText}))
+
+  res.send(messageLinks)
 })
 
 const sendMessage = (message) => {
