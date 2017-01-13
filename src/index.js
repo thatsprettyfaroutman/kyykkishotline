@@ -165,6 +165,18 @@ messages.forEach(message => {
 
 app.post('/tikrucafe', (req, res) => {
   console.log('NEW ORDER TIKRU CAFE', req.body, req.param('type'))
+  const coffeeType = req.param('type')
+  switch (coffeeType) {
+    case 'latte':
+      sendMessage({...MESSAGE_BASE, text: '*Tikru Café tilaus: Yksi Latte, kiitos!!*'})
+      break
+
+    case 'espresso':
+      sendMessage({...MESSAGE_BASE, text: '*Tikru Café tilaus: Yksi Espresso, kiitos!!*'})
+      break
+
+    default:
+  }
   res.sendStatus(200)
 })
 
