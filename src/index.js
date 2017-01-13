@@ -83,7 +83,7 @@ const messages = [
 ]
 
 const app = express()
-app.use(bodyParser.urlencoded({extended: false}))
+// app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, 'web')))
 
@@ -165,6 +165,7 @@ messages.forEach(message => {
 
 app.post('/tikrucafe', (req, res) => {
   console.log('NEW ORDER TIKRU CAFE', req.body)
+  console.log(req)
   res.sendStatus(200)
 })
 
