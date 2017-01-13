@@ -152,7 +152,7 @@ messages.forEach(message => {
 // Tikru Cafe
 
 app.post('/tikrucafe', (req, res) => {
-  console.log('NEW ORDER TIKRU CAFE')
+  console.log('NEW ORDER TIKRU CAFE', req.body)
   res.sendStatus(200)
 })
 
