@@ -166,17 +166,11 @@ messages.forEach(message => {
 app.post('/tikrucafe', (req, res) => {
   console.log('NEW ORDER TIKRU CAFE', req.body, req.param('type'))
   const coffeeType = req.param('type')
-  switch (coffeeType) {
-    case 'latte':
-      sendMessage({...MESSAGE_BASE, text: '*Tikru Café tilaus: Yksi Latte, kiitos!!*'})
-      break
+  const name = req.param('name')
+  const figure = req.param('figure') && `, Kuviotoive: ${req.param('figure')}`
 
-    case 'espresso':
-      sendMessage({...MESSAGE_BASE, text: '*Tikru Café tilaus: Yksi Espresso, kiitos!!*'})
-      break
+  sendMessage({...MESSAGE_BASE, text: `*Tikru Café tilaus: Yksi ${coffeeType}, kiitos!! Tilaaja: ${name}${figure}*`})
 
-    default:
-  }
   res.sendStatus(200)
 })
 
