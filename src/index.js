@@ -170,7 +170,11 @@ app.post('/tikrucafe', (req, res) => {
   const name = req.param('name')
   const figure = req.param('figure') && `, Kuviotoive: ${req.param('figure')}`
 
-  sendMessage({...MESSAGE_BASE, channel: TIKRU_CHANNEL, text: `*Tikru Café tilaus: Yksi ${coffeeType}, kiitos!! Tilaaja: ${name}${figure}*`})
+  sendMessage({
+    ...MESSAGE_BASE,
+    channel: TIKRU_CHANNEL,
+    text: `*Tikru Café tilaus: Yksi ${coffeeType}, kiitos!! Tilaaja: ${name}${figure}*`,
+  })
 
   res.sendStatus(200)
 })
